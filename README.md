@@ -31,7 +31,7 @@ it will output
 
 ## Demo
 
-Checkout the [demo page](https://typescript-cbre5j.stackblitz.io) to see marked in action ⛹️.
+Checkout the [demo page](https://stackblitz.com/edit/typescript-cbre5j?file=index.ts) to see marked in action ⛹️.
 Or you can edit and view preview result in [markdown editor](https://xiefucai.gitee.io/article/**).
 
 ## License

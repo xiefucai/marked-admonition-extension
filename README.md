@@ -10,7 +10,7 @@ const { marked } = require('marked');
 const admonition = require('marked-admonition-extension');
 
 // import the css file
-require('marked/index.css');
+require('marked-admonition-extension/dist/index.css');
 
 marked.use(admonition.default);
 

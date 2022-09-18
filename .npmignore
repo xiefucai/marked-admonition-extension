@@ -1,0 +1,12 @@
+node_modules/
+public/
+src/*.ts
+package-lock.json
+yarn.lock
+snowpack.config.mjs
+tsconfig.json
+
+.git
+.prettierrc
+.gitignore
+.npmignore

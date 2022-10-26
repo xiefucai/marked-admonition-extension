@@ -1,6 +1,6 @@
 ﻿import type { marked } from 'marked';
 
-const types = [
+const admonitionTypes = [
   "abstract",
   "attention",
   "bug",
@@ -19,8 +19,8 @@ const types = [
   "warning"
 ];
 const startReg =
-  new RegExp(`^!!!\\s+(${types.join('|')})\\s+(.*)$`);
-  // /^!!!\s+(note|abstract|info|tip|success|question|warning|failure|danger|bug|example|quote|hint|caution|error|attention)\s+(.*)$/
+  new RegExp(`^!!!\\s+(${admonitionTypes.join('|')})\\s+(.*)$`);
+// /^!!!\s+(note|abstract|info|tip|success|question|warning|failure|danger|bug|example|quote|hint|caution|error|attention)\s+(.*)$/
 const endReg = /^!!!\s*$/;
 const debug = false;
 
@@ -28,7 +28,7 @@ const admonitionPlugin: marked.TokenizerExtension | marked.RendererExtension = {
   name: 'admonition',
   level: 'block',
   start(this: marked.TokenizerThis, src: string) {
-    const index = src.match(new RegExp(`(^|[\\r\\n])!!!\\s+(${types.join('|')})\\s+(.*)`))?.index;
+    const index = src.match(new RegExp(`(^|[\\r\\n])!!!\\s+(${admonitionTypes.join('|')})\\s+(.*)`))?.index;
     debug && console.log('🎋[marked start]', src, index);
     return index;
   },
@@ -50,7 +50,7 @@ const admonitionPlugin: marked.TokenizerExtension | marked.RendererExtension = {
           }
         }
       }
-  
+
       if (sections.length) {
         const section = sections[0];
         const [_, icon, title] = startReg.exec(lines[section.x]) || [];
@@ -66,7 +66,7 @@ const admonitionPlugin: marked.TokenizerExtension | marked.RendererExtension = {
           tokens: [],
           childTokens: ['title', 'text'],
         };
-  
+
         this.lexer.inlineTokens(token.title, token.titleTokens);
         this.lexer.blockTokens(token.text, token.tokens);
         return token;
@@ -86,6 +86,8 @@ const admonitionPlugin: marked.TokenizerExtension | marked.RendererExtension = {
 };
 
 const extensions: (marked.TokenizerExtension | marked.RendererExtension)[] = [admonitionPlugin];
+
+export { admonitionTypes };
 
 export default <marked.MarkedExtension>{
   extensions,

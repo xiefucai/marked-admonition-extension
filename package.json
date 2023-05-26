@@ -1,6 +1,6 @@
 {
   "name": "marked-admonition-extension",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "author": "xiefucai <laozi12345@126.com>",
   "description": "an admonition extension for [marked](https://github.com/markedjs/marked)",
   "license": "MIT",

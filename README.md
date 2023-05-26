@@ -9,6 +9,9 @@ the below code can be used in node.js, base CommonJs.
 const { marked } = require('marked');
 const admonition = require('marked-admonition-extension');
 
+// custom tag name and class name (note: only version greater than v0.0.2 support)
+// admonition.setConfig({ nodeName: 'details', className: 'details', title: { nodeName: 'summary' } });
+
 // import the css file
 require('marked-admonition-extension/dist/index.css');
 

@@ -1,5 +1,9 @@
 ﻿import type { marked } from 'marked';
-
+type Config = {
+  nodeName: string;
+  className: string;
+  title: { nodeName: string; }
+}
 const admonitionTypes = [
   "abstract",
   "attention",
@@ -19,16 +23,17 @@ const admonitionTypes = [
   "warning"
 ];
 const startReg =
-  new RegExp(`^!!!\\s+(${admonitionTypes.join('|')})\\s+(.*)$`);
+  new RegExp(`^!!!\\s+(${admonitionTypes.join('|')})(?:\\s+)?(.*)$`);
 // /^!!!\s+(note|abstract|info|tip|success|question|warning|failure|danger|bug|example|quote|hint|caution|error|attention)\s+(.*)$/
 const endReg = /^!!!\s*$/;
 const debug = false;
+let config:Config = { nodeName: 'div', className: 'admonition', title: { nodeName: 'p' } };
 
 const admonitionPlugin: marked.TokenizerExtension | marked.RendererExtension = {
   name: 'admonition',
   level: 'block',
   start(this: marked.TokenizerThis, src: string) {
-    const index = src.match(new RegExp(`(^|[\\r\\n])!!!\\s+(${admonitionTypes.join('|')})\\s+(.*)`))?.index;
+    const index = src.match(new RegExp(`(^|[\\r\\n])!!!\\s+(${admonitionTypes.join('|')})(?:\\s+)?(.*)`))?.index;
     debug && console.log('🎋[marked start]', src, index);
     return index;
   },
@@ -75,19 +80,23 @@ const admonitionPlugin: marked.TokenizerExtension | marked.RendererExtension = {
   },
   renderer(this: marked.RendererThis, token) {
     debug && console.log('🐉[marked renderer]', this, token);
-    const html = `<div class="admonition admonition-${token.icon}">
-    <p class="admonition-title">${this.parser.parseInline(
+    const html = `<${config.nodeName} class="${config.className} ${config.className}-${token.icon}">
+    <${config.title.nodeName} class="${config.className}-title">${this.parser.parseInline(
       token.titleTokens, null as any
-    )}</p>
+    )}</${config.title.nodeName}>
     ${this.parser.parse(token.tokens!)}
-    </div>`;
+    </${config.nodeName}>`;
     return html;
   },
 };
 
 const extensions: (marked.TokenizerExtension | marked.RendererExtension)[] = [admonitionPlugin];
 
-export { admonitionTypes };
+const setConfig = (data: Config) => {
+  config = data;
+}
+
+export { admonitionTypes, setConfig };
 
 export default <marked.MarkedExtension>{
   extensions,

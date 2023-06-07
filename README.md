@@ -1,5 +1,7 @@
 # marked-admonition-extension
-an admonition extension for [marked](https://github.com/markedjs/marked), both support `ESM` and `CJS`.
+This is a [marked](https://github.com/markedjs/marked) admonition extension, to render out a nice warning message with simple markdown syntax, both support `ESM` and `CJS`.
+
+> Warning: you must use Marked to use this extension!
 
 ## Usage
 you can use `abstract`、`attention`、`bug`、`caution`、`danger`、`error`、`example`、`failure`、`hint`、`info`、`note`、`question`、`quote`、`success`、`tip`、`warning` as their theme;
@@ -17,8 +19,8 @@ require('marked-admonition-extension/dist/index.css');
 
 marked.use(admonition.default);
 
-const content = marked.parse(`!!! info Publish ESM and CJS in a single package
-In the past decade, due to the lack of a standard module system of \`JavaScript\`, **CommonJS** (a.k.a the \`require('xxx')\` and \`module.exports\` syntax) has been the way how Node.js and NPM packages work. Until 2015, when ECMAScript modules finally show up as the standard solution, the community start migrating to native ESM gradually.
+const content = marked.parse(`!!! note this is a \`note\` type admonition
+The warning above was a \`note\` type admonition
 !!!`);
 
 console.log(content);
@@ -26,12 +28,11 @@ console.log(content);
 it will output
 ``` html
 <div class="admonition admonition-info">
-    <p class="admonition-title">Publish ESM and CJS in a single package</p>
-    <p>In the past decade, due to the lack of a standard module system of <code>JavaScript</code>, <strong>CommonJS</strong> (a.k.a the <code>require(&#39;xxx&#39;)</code> and <code>module.exports</code> syntax) has been the way how Node.js and NPM packages work. Until 2015, when ECMAScript modules finally show up as the standard solution, the community start migrating to native ESM gradually.</p>
-
-    </div>
+    <p class="admonition-title">this is a <code>info</code> type admonition</p>
+    <p>The warning above was a <code>info</code> type admonition</p>
+</div>
 ```
-
+![admonition note image](https://cdn.jsdelivr.net/gh/xiefucai/Chrome@master/images/admonition.png)
 ## Demo
 
 Checkout the [demo page](https://stackblitz.com/edit/typescript-cbre5j?file=index.ts) to see marked in action ⛹️.
@@ -39,4 +40,4 @@ Or you can edit and view preview result in [markdown editor](https://xiefucai.gi
 
 ## License
 
-Copyright (c) 2011-2022, Christopher Jeffrey. (MIT License)
+Copyright (c) 2011-2023, Fucai.xie. (MIT License)
